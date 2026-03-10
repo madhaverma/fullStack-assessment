@@ -1,0 +1,106 @@
+:root {
+    --primary: #4a90e2;
+    --error: #ff4d4d;
+    --success: #2eb82e;
+    --bg: #f4f7f9;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.form-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 { text-align: center; color: #333; margin-bottom: 1.5rem; }
+
+.input-group { margin-bottom: 1rem; }
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Validation Feedback */
+.error {
+    color: var(--error);
+    font-size: 0.75rem;
+    height: 1rem;
+    display: block;
+    margin-top: 4px;
+}
+
+/* Password Toggle */
+.password-wrapper { position: relative; display: flex; align-items: center; }
+
+#togglePassword {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Strength Meter */
+#strengthMeter {
+    height: 5px;
+    width: 100%;
+    background: #eee;
+    margin-top: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#strengthBar {
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+#submitBtn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+#submitBtn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#subCount {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 15px;
+}
