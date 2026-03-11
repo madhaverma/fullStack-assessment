@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        /* CSS Section */
+        :root { --primary: #4A90E2; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; width: 100%; max-width: 800px; margin-top: 20px; }
+        
+        .card { background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .city { font-weight: bold; color: #4b5563; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+        .emoji { font-size: 3.5rem; margin: 15px 0; display: block; }
+        .temp { font-size: 2.5rem; font-weight: 800; color: #1f2937; }
+        .condition { color: #6b7280; margin-top: 5px; font-style: italic; }
+
+        #loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; display: none; margin: 20px; }
+        #error { background: #fee2e2; color: #b91c1c; padding: 1rem; border-radius: 8px; display: none; margin-bottom: 20px; border: 1px solid #fecaca; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <h1>Live Weather</h1>
+    <div id="error"></div>
+    <div id="loader"></div>
+    <div id="weather-grid" class="grid"></div>
+
+    <script>
+        // JS Section
+        const CITIES = [
+            { name: "New York", lat: 40.71, lon: -74.01 },
+            { name: "London", lat: 51.51, lon: -0.13 },
+            { name: "Tokyo", lat: 35.69, lon: 139.69 }
+        ];
+
+        const getWeatherInfo = (code) => {
+            const mapping = {
+                0: ["☀️", "Clear Sky"], 1: ["🌤️", "Mainly Clear"], 2: ["⛅", "Partly Cloudy"],
+                3: ["☁️", "Overcast"], 45: ["🌫️", "Foggy"], 61: ["🌧️", "Rainy"], 95: ["⛈️", "Stormy"]
