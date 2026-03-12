@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech News</title>
+</head>
+<body>
+
+<h1>Tech News</h1>
+
+<button class="topic" data-topic="AI">AI</button>
+<button class="topic" data-topic="JavaScript">JavaScript</button>
+<button class="topic" data-topic="startup">Startup</button>
+<button class="topic" data-topic="programming">Programming</button>
+
+<hr>
+
+<div id="news"></div>
+
+<script>
+const buttons = document.querySelectorAll('.topic');
+
+async function fetchNews(topic) {
+    try {
+        const response = await fetch(`https://hn.algolia.com/api/v1/search?query=${topic}`);
+        const data = await response.json();
+        showNews(data.hits);
+    } catch (error) {
+        const newsDiv = document.getElementById('news');
+        newsDiv.innerHTML = "Error loading news";
+    }
+}
+
+function showNews(newsItems) {  
+    const newsDiv = document.getElementById('news');
+
+    newsDiv.innerHTML = newsItems.map(item => `
+        <div style="margin-bottom:15px;">
+            <h3>${item.title || "No Title"}</h3>
+            <a href="${item.url}" target="_blank">Read More</a>
+        </div>
+    `).join('');
+}
+
+/* Add click event to buttons */
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        const topic = button.dataset.topic;
+        fetchNews(topic);
+    });
+});
+</script>
+
+</body>
+</html>
